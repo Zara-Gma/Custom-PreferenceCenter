@@ -1,0 +1,23 @@
+<!-- Adding AMPscript to the Preference Center form -->
+%%[
+/* lookup subscriber key in master data extension */
+if (not empty(@subscriberkey) == true and
+RowCount(LookupRows('Master Subscribers', 'Subscriber Key', @subscriberkey)) >= 1 =)
+then
+set @subscriberRS = lookupRows('Master Subscribers','Subscriber Key', @subscriberkey)
+set @EmailStatus = field(row(@subscriberRS, 1), 'Email Status')
+set @Newsletter = field(row(@subscriberRS, 1), 'Newsletter')
+set @Deals = field(row(@subscriberRS, 1), 'Deals')
+set @EmailFrequency = field(row(@subscriberRS, 1), 'EmailFrequency')
+set @Hiking = field(row(@subscriberRS, 1), 'Hiking')
+set @Kayaking = field(row(@subscriberRS, 1), 'Kayaking')
+set @Climbing = field(row(@subscriberRS, 1), 'Climbing')
+]%%
+
+DISPLAY THE FORM
+
+%%[else]%%
+
+ERROR MESSAGING
+
+%%[endif]%%

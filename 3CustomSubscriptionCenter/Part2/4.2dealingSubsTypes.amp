@@ -1,0 +1,5 @@
+<!-- Using UpdateData()-->
+%%[
+set @RecordUpdate = UpdateData('Master Subscribers', 1, 'Subscriber Key', @subscriberkey, 'Status', 'Unsubscribed')]%%
+
+<!-- note that @RecordUpdate will return 1 if update ws made and 0 if update failed -->
