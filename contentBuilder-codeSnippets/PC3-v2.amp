@@ -88,7 +88,7 @@ endif
 
 endif
 else
-/* no subscriber key redirect */
+<!-- no subscriber key redirect -->
 redirect('https://www.cerascreen.com')
 endif
 ]%%

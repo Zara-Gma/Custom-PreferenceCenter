@@ -12,8 +12,9 @@ set @subscriberkey = _subscriberkey
 
 <a href="%%=redirectto(cloudpagesURL('398', 'rona', 'coronaTest', 'fn', @firstname, 'ln', @lastname, 'dob', @dateofbirth, 'g', @gender))=%%" alias="hiking" target="_blank"><img src="https://image.sarah.cerascreen.com/lib/fe3911717564047f731371/m/1/906afe11-ec50-417a-b90c-26071233947c.png" border="0" alt=""></a>
 
-/* QUERYPARAMETER example
-http://www.example.com?n=George&st=tx */
+<!--––  QUERYPARAMETER example
+http://www.example.com?n=George&st=tx -->
+
 %%[
 set @firstname = queryparameter('fn')
 set @gender = queryparameter('g')
@@ -21,15 +22,15 @@ set @subscriberkey = _subscriberkey
 ]%%
 
 %%[if @segment == 'coronaTest' then]%%
-/* coronaTest Image code */
+<!--–– coronaTest Image code -->
 %%[elseif @segment == 'generalTest' ]%%
-/* generalTest Image code */
+<!--–– General Image code -->
 %%[else]%%
-/* Default Image code */
+<!--–– Default Image code -->
 %%[endif]%%
 
 
-/* QUERYPARAMETER example2 */
+<!-- QUERYPARAMETER example2 -->
 %%[
 set @segment = queryparameter('s')
 set @firstname = queryparameter('fn')
@@ -38,15 +39,15 @@ set @subscriberkey = _subscriberkey
 ]%%
 
 %%[if @gender == 'Female' then]%%
-/* Female Image code */
+<!-- Female Image code -->
 %%[elseif @segment == 'Male' ]%%
-/* Male Image code */
+<!-- Male Image code -->
 %%[else]%%
-/* Default Image code */
+<!-- Default Image code -->
 %%[endif]%%
 
 
-/* Subscriber key value */
+<!-- Subscriber key value -->
 %%[
 set @segment = queryparameter('s')
 set @firstname = queryparameter('fn')
@@ -57,11 +58,11 @@ set @VIPLookup = lookuprows('vip_subscribers', 'ID', @subscriberkey)
 
 if rowcount(@VIPLookup) >= 1 then
 ]%%
-/* VIP banner Code */
+<!-- VIP banner Code -->
 %%[endif]%%
 
 
-/* Use IIF to simplify the IF/ELSE logic based on a TRUE/FALSE condition */
+<!-- Use IIF to simplify the IF/ELSE logic based on a TRUE/FALSE condition -->
 %%[
 set @segment = queryparameter('s')
 set @firstname = queryparameter('fn')
@@ -76,10 +77,10 @@ lookuprows('vip_subscribers', 'ID', @subscriberkey)
 if rowcount(@VIPLookup) >= 1 then
 ]%%
 
-/*  VIP banner code */
+<!--  VIP banner code -->
 %%[endif]%%
 
-/* Error handling in Cloudpages */
+<!-- Error handling in Cloudpages -->
 <script runat="server" type="text/javascript">
 Platform.Load("core", "1");
 
@@ -111,7 +112,7 @@ if not empty(@subscriberkey) == true then Set
 /* perform your scripting */
 ]%%
 
-<! -- your HTML -->
+/* your HTML /*
 %%[else]%%
 You have reached this page in error.
 %%[endif]%%

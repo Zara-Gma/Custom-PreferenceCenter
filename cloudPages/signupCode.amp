@@ -1,4 +1,4 @@
-/* landing page */
+<!-- landing page -->
 %%[
 set @country = queryparameter('s')
 set @firstname = queryparameter('fn')

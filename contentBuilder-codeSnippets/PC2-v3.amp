@@ -11,7 +11,7 @@ set @CoronaTest = field(row(@subscriberRS, 1), 'CoronaTest')
 set @GeneralTest = field(row(@subscriberRS, 1), 'GeneralTest')
 ]%%
 
-/* re-subscribe form if they are unsubscribed */
+<!-- re-subscribe form if they are unsubscribed -->
 set @subStatus = lookup
 <!DOCTYPE html>
 <html>

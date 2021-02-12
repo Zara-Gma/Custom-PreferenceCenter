@@ -1,4 +1,4 @@
-/* PC 1-v1 */
+<!-- PC 1-v1 -->
 %%[
 set @subscriberkey = _subscriberkey
 set @email = emailaddr

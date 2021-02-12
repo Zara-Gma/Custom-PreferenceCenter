@@ -49,11 +49,6 @@ next @i
 endif
 ]%%
 
-
-// %%[if @CoronaTest==true
-//           then]%%checked%%[endif]%%>coronaTest</label>
-
-
       <h2>Preferences</h2>
       <label for="frequency">How many emails do you wish to receive from CeraScreen?
         <select name="frequency">
