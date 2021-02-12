@@ -1,0 +1,21 @@
+<!-- Top of the page -->
+%%[
+set @segment = queryparameter('s')
+set @firstname = queryparameter('fn')
+set @gender = queryparameter('g')
+set @stateCode = queryparameter('st')
+set @subscriberkey = _subscriberkey
+]%%
+
+<!-- Email Promo -->
+%%=uppercase(@firstname)=%%, 20% on accessories through October
+As an additional reward for being a loyal customer, we're giving you free SHIPPING to %%=v(@stateCode)=%%, or wherever your adventures take you!
+
+<!-- Image block -->
+%%[if @segment == 'hiking' then]%%
+%%=ContentImagebyID('180342','DefaultImage')=%%
+%%[elseif @segment == 'kayaking' then]%%
+%%=ContentImagebyID('180342','DefaultImage')=%%
+%%[else]%%
+%%=ContentImagebyID('180342','DefaultImage')=%%
+%%[endif]%%

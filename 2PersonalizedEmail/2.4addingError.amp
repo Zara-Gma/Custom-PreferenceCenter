@@ -1,30 +1,13 @@
-<!-- Use a basic qualifier, don't use a custom value because that can be mimicked through a query string -->
+<!-- Adding Error handling and Qualifiers -->
+<!-- Use a basic qualifier, like a subscriber key or a job id. Don't use a custom value because that can be mimicked through a query string -->
 %%[
 Set @subscriberkey = _subscriberkey
 if not empty(@subscriberkey) == true then Set
 /* perform your scripting */
 ]%%
 
-/* your HTML /*
+<!-- HTML goes here -->
 %%[else]%%
+<!-- Display an error message -->
 You have reached this page in error.
-%%[endif]%%
-
-
-/* Use field() and row() to retrieve the accountId from the lookup */
-%%[
-set @segment = queryparameter('s')
-set @firstname = queryparameter('fn')
-set @gender = queryparameter('g')
-set @subscriberkey = _subscriberkey
-
-IIF(empty(@firstname), 'Corona case', propercase(@firstname))
-
-set @VIPLookup =
-lookuprows('vip_subscribers', 'ID', @subscriberkey)
-
-if rowcount(@VIPLookup) >= 1 then
-set @accountId = field(row(@VIPLookup, 1), 'accountID')
-]%%
-Your account number: %%=v(@accountId)=%%
 %%[endif]%%

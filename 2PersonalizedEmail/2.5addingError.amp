@@ -1,0 +1,21 @@
+<!-- Adding Error handling and Qualifiers -->
+%%[
+set @segment = queryparameter('s')
+set @firstname = queryparameter('fn')
+set @gender = queryparameter('g')
+set @stateCode = queryparameter('st')
+set @subscriberkey = _subscriberkey
+
+IIF(empty(@firstname), 'Outdoor enthusiast', propercase(@firstname))
+
+set @VIPLookup =
+lookuprows('vip_subscribers', 'ID', @subscriberkey)
+
+if rowcount(@VIPLookup) >= 1 then
+/* Use field() and row() to retrieve the accountId from the lookup */
+/* This function will fail if no rows are returned in the lookuprows() function */
+set @accountId = field(row(@VIPLookup, 1), 'accountID')
+]%%
+<!-- Output the account id-->
+Your account number: %%=v(@accountId)=%%
+%%[endif]%%

@@ -1,3 +1,4 @@
+<!-- Adding logic to our landing page-->
 <!-- Example1 -->
 <!--On the CloudPage destination for the link, set up AMPscript variables and use either queryparameter() or global strings to retrieve the incoming values-->
 %%[

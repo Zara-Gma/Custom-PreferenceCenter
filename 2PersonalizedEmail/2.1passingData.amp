@@ -1,3 +1,4 @@
+<!-- Passing data to our landing page -->
 <!-- Subject line -->
 %%=propercase(@firstname)=%%, Save up to 20% on accesories!
 
