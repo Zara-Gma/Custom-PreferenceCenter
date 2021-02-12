@@ -1,0 +1,75 @@
+<!-- Example1 -->
+<!--On the CloudPage destination for the link, set up AMPscript variables and use either queryparameter() or global strings to retrieve the incoming values-->
+%%[
+set @segment = queryparameter('s')
+set @firstname = queryparameter('fn')
+set @gender = queryparameter('g')
+set @stateCode = queryparameter('st')
+set @subscriberkey = _subscriberkey
+]%%
+
+<!--––  Evaluate the segment code within the link clicked in the IF/THEN statement -->
+%%[if @segment == 'hiking' then]%%
+<!--–– Hiking Image code -->
+%%[elseif @segment == 'kayaking' then]%%
+<!--–– Kayak Image code -->
+%%[else]%%
+<!--–– Default Image code -->
+%%[endif]%%
+
+
+<!-- Example2 -->
+<!-- Demo Gender -->
+%%[
+set @segment = queryparameter('s')
+set @firstname = queryparameter('fn')
+set @gender = queryparameter('g')
+set @stateCode = queryparameter('st')
+set @subscriberkey = _subscriberkey
+]%%
+
+<!--––  Evaluate the gender of the subscriber insteans of the segment code -->
+%%[if @gender == 'Male' then]%%
+<!--–– Male Image code -->
+%%[elseif @gender == 'Female' then]%%
+<!--–– Female Image code -->
+%%[else]%%
+<!--–– Default Image code -->
+%%[endif]%%
+
+
+<!-- Example3 -->
+<!-- Pull the subscriber key value -->
+%%[
+set @segment = queryparameter('s')
+set @firstname = queryparameter('fn')
+set @gender = queryparameter('g')
+set @subscriberkey = _subscriberkey
+/* Use the subscriber key to lookup into a data extension */
+set @VIPLookup = lookuprows('vip_subscribers', 'ID', @subscriberkey)
+/* if at least 1 row returns from our lookup, display the VIP banner code */
+if rowcount(@VIPLookup) >= 1 then
+]%%
+<!-- The omission of the ELSE means that nothing will be outputted from this block if the doesnt pass-->
+<!-- VIP banner code here -->
+%%[endif]%%
+
+
+<!-- Example4 -->
+<!-- Use IIF to simplify the IF/ELSE logic based on a TRUE/FALSE condition -->
+%%[
+set @segment = queryparameter('s')
+set @firstname = queryparameter('fn')
+set @gender = queryparameter('g')
+set @stateCode = queryparameter('st')
+set @subscriberkey = _subscriberkey
+
+IIF(empty(@firstname), 'Outdoor enthusiast', propercase(@firstname))
+
+set @VIPLookup =
+lookuprows('vip_subscribers', 'ID', @subscriberkey)
+
+if rowcount(@VIPLookup) >= 1 then
+]%%
+<!--  VIP banner code -->
+%%[endif]%%

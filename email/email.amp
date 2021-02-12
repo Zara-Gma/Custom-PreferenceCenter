@@ -1,4 +1,4 @@
-/* landing page */
+<!-- landing page -->
 %%[
 set @segment = queryparameter('s')
 set @firstname = queryparameter('fn')

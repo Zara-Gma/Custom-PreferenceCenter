@@ -1,0 +1,16 @@
+<!-- Subject line -->
+%%=propercase(@firstname)=%%, Save up to 20% on accesories!
+
+<!-- Email starts here -->
+<!-- Code snippet#1 -->
+%%[
+set @firstname = [First Name]
+set @gender = [Gender]
+set @stateCode = [stateCode]
+set @segment = [segmentCode]
+]%%
+
+<!-- Call to Action -->
+%%=redirectto(cloudpagesURL('1019', 's', 'hiking', 'n', @firstname, 'g', @gender, 'st', @stateCode, 'c', @segment))=%%
+<!-- Call to Action -->
+%%=redirectto(cloudpagesURL('1019', 's', 'kayaking', 'n', @firstname, 'g', @gender, 'st', @stateCode, 'c', @segment))=%%

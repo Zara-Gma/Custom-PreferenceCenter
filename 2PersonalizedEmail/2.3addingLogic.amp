@@ -1,0 +1,15 @@
+<!-- To avoid the 500 error, use a SSJS try/cath approach -->
+<!-- Load the Marketing Cloud core SSJS library, version1 -->
+<script runat="server" type="text/javascript">
+Platform.Load("core", "1");
+
+try {
+</script>
+/* Place your AMPscript between the script tags */
+%%[/* your ampscript */ ]%%
+<script runat="server" type="text/javascript">
+}
+/*  The catch funciton prints the error on the page; best practice is to remove the error text and use something more user friendly after testing */
+catch (err) {  Write("Error: " + Stringify(err));
+}
+</script>

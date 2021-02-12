@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      color: grey
+    }
+  </style>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <!-- Logo start-->
+  <div class="row" style="background-color:#92a143;">
+    <div class="col-md-3" style="margin-left:5%;margin-top:1%;margin-bottom:2%;">
+      <img width="250px" height="100px"
+        src="https://cdn.shopify.com/s/files/1/0267/9370/5585/files/logo_cerascreen_1024x1024_1024x1024_63868ace-0284-4555-a0ea-31c542a88450_240x62@2x.png?v=1592959641"
+        alt="" id="logo" />
+    </div>
+    <div class="col-md-9">
+    </div>
+  </div>
+  <!-- Logo end-->
+  <!-- body start-->
+  <div class="row" style="background-color:#ffffff;">
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-3">
+    </div>
+  </div>
+
+  <div class="container">
+    <h2>Update your profile:</h2>
+    <form action="%%=RequestParameter('PAGEURL')=%%" method="post">
+      <label>First name: </label><input type="text" name="firstname" value="%%=v(@FirstName)=%%"><br>
+      <label>Last name: </label><input type="text" class="form-control" name="lastname" value="%%=v(@LastName)=%%"><br>
+      <label>Email: </label><input type="text" name="email" value="%%=v(@Email)=%%"><br>
+
+      <h2>Resubscribe</h2>
+
+      You have unsubscribed from ALL publications from <i>%%member_busname%%</i>. If you wish to resubscribe, click the
+      Resubscribe button below.
+      <input name="submitted" type="hidden" value="true"><br>
+      <input name="sub" type="hidden" value="true"><br><br>
+      <input type="submit" value="Resubscribe">
+    </form>
+
+    <h2>Update your subscriptions:</h2>
+
+    <label>Newsletter: </label><input name="newsletter" type="checkbox" %%=v(@Newsletterchk)=%%><br>
+    <label>Events: </label><input name="events" type="checkbox" %%=v(@Eventschk)=%%><br>
+    <label>Offers: </label><input name="offers" type="checkbox" %%=v(@Offerschk)=%%><br>
+    <input name="submitted" type="hidden" value="true"><br>
+    <input type="submit" value="Submit"></form>
+    <br><br>
+
+    <h2>Unsubscribe From All</h2>
+
+    If you wish to unsubscribe from ALL publications from <i>%%member_busname%%</i>, click the Unsubscribe From All
+    button below.
+    <form action="%%=RequestParameter('PAGEURL')=%%" method="post">
+      <input name="submitted" type="hidden" value="true">
+      <input name="unsub" type="hidden" value="true"><br>
+      <input type="submit" value="Unsubscribe From All">
+    </form>
+
+    <h2>Your profile has been updated.</h2>
+
+    Go back to your profile.<br>
+    <form action="%%=RequestParameter('PAGEURL')=%%" method="post">
+      <br>
+      <input type="submit" value="Go Back">
+    </form>
+
+
+  </div>
+  <!-- body end-->
+</body>
+
+</html>
