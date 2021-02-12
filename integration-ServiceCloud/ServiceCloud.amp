@@ -1,0 +1,19 @@
+%%[
+set @subscriberkey = _subscriberkey
+
+if substring(@subscriberkey, 1, 3) == '00Q'
+then 
+    set @recordType = 'Lead'
+elseif substring(@subscriberkey, 1, 3) == '003' then
+    set @recordType = 'Contact'
+else
+    set @recordType = 'Unknown'
+endif
+
+if @recordType != 'Unknown' then
+    set @RecordUpdate = 
+UpdateSingleSalesforceObject(@recordType, @subscriberkey, 'HasOptedOutOfEmail', 'True')
+else
+    set @RecordUpdate = UpdateData('Master Subscribers', 1, 'Subscriber Key', @subscriberkey, 'Status', 'Unsubscribed')
+endif
+]%%

@@ -1,0 +1,93 @@
+%%[
+if (not empty(@subscriberkey) == true and
+RowCount(LookupRows('Master Subscribers','Subscriber Key',@subscriberkey)) >= 1)
+then
+set @subscriberRS = lookupRows('Master Subscribers','Subscriber Key', @subscriberkey)
+set @EmailStatus = field(row(@subscriberRS, 1), 'Email Status')
+set @Newsletter = field(row(@subscriberRS, 1), 'Newsletter')
+set @Deals = field(row(@subscriberRS, 1), 'Deals')
+set @EmailFrequency = field(row(@subscriberRS, 1), 'EmailFrequency')
+set @CoronaTest = field(row(@subscriberRS, 1), 'CoronaTest')
+set @GeneralTest = field(row(@subscriberRS, 1), 'GeneralTest')
+]%%
+
+/* re-subscribe form if they are unsubscribed */
+set @subStatus = lookup
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600' rel='stylesheet'>
+  <link href="main.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container">
+    <h1>Email Preferences</h1>
+    <p>Below are your current subscriptions and preferences for the email address: %%=v(@email)=%%. You may use this
+      page to update your selections or choose to unsubscribe from all our email communications.</p>
+    <br>
+    <form action="%%CloudPagesURL('410')" method="post"></form>
+    <fieldset>
+      <h2>Subscriptions</h2>
+
+      <label for="newsletter"><input type="checkbox" name="newsletter" %%[if @Newsletter==true
+          then]%%checked%%[endif]%%>Newsletter</label>
+      <label for="deals"><input type="checkbox" name="deals" %%[if @Deals==true then]%%checked%%[endif]%%>Deals</label>
+
+      <h2>Preferences</h2>
+      <label for="frequency">How many emails do you wish to receive from CeraScreen?
+        <select name="frequency">
+          <option value="">Please make a selection</option>
+          <option value="all" %%[if @EmailFrequency=='all' then]%%selected%%[endif]%%>As many emails as you can send me!
+          </option>
+          <option value="medium" %%[if @EmailFrequency=='medium' then]%%selected%%[endif]%%>1-2 emails a week is plenty
+          </option>
+          <option value="minimum" %%[if @EmailFrequency=='minimum' then]%%selected%%[endif]%%>Only the most relevant
+            emails, 1-2 per month or less</option>
+        </select>
+      </label>
+
+      <h2>Interests</h2>
+
+      <label for="coronaTest"><input type="checkbox" name="coronaTest" %%[if @CoronaTest==true
+          then]%%checked%%[endif]%%>coronaTest</label>
+      <label for="generalTest"><input type="checkbox" name="generalTest" %%[if @GeneralTest==true
+          then]%%checked%%[endif]%%>generalTest</label>
+      <br><br>
+
+      <label for="unsuball"><input type="checkbox" name="unsuball"> Unsubscribe me from all email communications</label>
+      <input type="hidden" name="subscriberkey" value="%%=v(@subscriberkey)=%%" />
+      <input type="hidden" name="email" value="%%=v(@email)=%%" />
+      <input type="hidden" name="jobid" value="%%=v(@jobid)=%%" />
+      <input type="hidden" name="batchid" value="%%=v(@batchid)=%%" />
+      <input type="hidden" name="listid" value="%%=v(@listid)=%%" />
+      <input type="hidden" name="emailName" value="%%=v(@emailName)=%%" />
+      <br>
+      <input type="submit" name="submit" value="Submit" />
+    </fieldset>
+    </form>
+    <br>
+    DEBUG:<br>
+    RowCount: %%=rowcount(@subscriptionRS=%%<br>
+    Subscriber key: %%=v(@subscriberkey)=%%<br>
+    Email: %%=v(@Email)=%%<br>
+    JobID: %%=v(@jobID)=%%<br>
+    ListID: %%=v(@listID)=%%<br>
+    BatchID: %%=v(@BatchID)=%%<br>
+    Newsletter: %%=v(@Newsletter)=%%<br>
+    Deals: %%=v(@Deals)=%%<br>
+    Frequency: %%=v(@Frequency)=%%<br>
+    CoronaTest: %%=v(@CoronaTest)=%%<br>
+    GeneralTest: %%=v(@GeneralTest)=%%<br>
+
+  </div>
+  %%[else]%%
+
+  Error message
+
+  %%[endif]%%
+
+</body>
+
+</html>

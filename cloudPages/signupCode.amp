@@ -1,0 +1,18 @@
+/* landing page */
+%%[
+set @country = queryparameter('s')
+set @firstname = queryparameter('fn')
+set @gender = queryparameter('g')
+set @subscriberkey = _subscriberkey
+]%%
+
+
+%%[if @country == 'Germany' then]%%
+%%=ContentImagebyID('180342','DefaultImage')=%%
+%%[elseif @country == 'United States' then]%%
+%%=ContentImagebyID('180342','DefaultImage')=%%
+%%[else]%%
+%%=ContentImagebyID('180342','DefaultImage')=%%
+%%[endif]%%
+
+Hello %%=uppercase(@firstname)=%%,

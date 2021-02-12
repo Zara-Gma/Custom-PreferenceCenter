@@ -1,0 +1,94 @@
+%%[
+/* get subscriber values */
+set @subscriberkey = requestparameter('subscriberkey')
+set @email = requestparameter('email')
+set @jobid = requestparameter('jobid')
+set @batchid = requestparameter('batchid')
+set @listid = requestparameter('listid')
+set @emailName = requestparameter('emailName')
+
+/* get form values */
+set @newsletter = requestparameter('newsletter')
+set @deals = requestparameter('deals')
+set @frequency = requestparameter('frequency')
+set @coronaTest = requestparameter('coronaTest')
+set @generalTest = requestparameter('generalTest')
+set @unsuball = requestparameter('unsuball')
+
+/* checkbox fixes */
+if @newsletter == 'on' then set @newsletter = 'True' else set @newsletter = 'False' endif
+if @deals == 'on' then set @deals = 'True' else set @deals = 'False' endif
+if @coronaTest == 'on' then set @coronaTest = 'True' else set @coronaTest = 'False' endif
+if @generalTest == 'on' then set @generalTest = 'True' else set @generalTest = 'False' endif
+
+if not empty(@suscriberkey) == true then
+/* processing */
+if @unsuball == 'on' then
+/* global opt out */
+/* update master subscriber DE */
+set @updateSubscriber = UpdateData('Master Subscriber', 1, 'Subscriber Key', @suscriberkey,
+'Newsletter', 'False', 
+'Deals', 'False',
+'CoronaTest', @CoronaTest,
+'GeneralTest', @generalTest,
+'Email Frequency', @frequency,
+'Email Status', 'Unsubscribed')
+
+/* log unsub event */
+SET @logUnsubEvent = CreateObject("ExecuteRequest")
+SetObjectProperty(@logUnsubEvent, "Name", "LogUnsubEvent")
+
+SET @UnbsubProperty = CreateObject("APIProperty")
+SetObjectProperty(@UnsubProperty, "Name", "SubscriberKey")
+SetObjectProperty(@UnsubProperty, "Value", @subscriberKey)
+AddObjectArrayItem(@logUnsubEvent,"Parameters", @UnsubProperty)
+
+SET @logUnsubEvent_status = InvokeExecute(@logUnsubEvent, @overallStatus, @requestId)
+SET @Status = field(row(@logUnsubEvent_status, 1), "StatusMessage")
+SET @Error = Field(row(@logUnsubEvent_statusm 1), "ErrorCode")
+
+if @updateSubscriber == 1 AND @Error == 0 then
+set @message = 'You have been unsubscribed.'
+else
+set @message = 'An error has occured, please try again at a later time. If the problem persists please contact us through our help center.'
+endif
+]%%
+%%=v(@message)=%%
+%%[
+else
+/* subscription changes */
+%%[
+set @subscriptionsRS = LookupOrderedRows('Master_Subscriptions',0,'position asc', 'Display', 1)
+if rowcount(@subscriptionsRS) >= 1 then
+/* display subscription */
+set @valuePairs = ''
+for @i = 1 to rowcount(@subscriptionsRS) do
+set @subscriptionName = field(row(@subscriptionsRS, @i), 'SubscriptionName')
+set @subscriptionDisplayName = field(row(@subscriptionsRS, @i), 'DisplayName')
+set @subscriptionDescription = field(row(@subscriptionsRS, @i), 'Description')
+set @subscriptionValue = requestparameter('subscriptionName')
+if @subscriptionValue == 'on' then set @subscriptionValue = 'True' else set @subscriptionValue = 'False'
+endif
+
+next @i
+set @updateMasterSubscribers = concat('%', '%[ set @updateSubscriber = UpdateData("Master Subscribers", 1, "SubscriberKey", @subscriberkey ', @valuePairs, ') ]%', '%')
+
+]%%
+%%=treatascontent(@updateMasterSubscribers)=%%
+%%[endif]%%
+
+if @updateSubscriber == 1 then
+set @message = 'Your preferences have been updated.'
+else
+set @message = 'An error has occurred.'
+endif
+]%%
+%%=v(@message)=%%
+%%[
+
+endif
+else
+/* no subscriber key redirect */
+redirect('https://www.cerascreen.com')
+endif
+]%%

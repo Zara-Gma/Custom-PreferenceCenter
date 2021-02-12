@@ -1,0 +1,9 @@
+/* PC 1-v1 */
+%%[
+set @subscriberkey = _subscriberkey
+set @email = emailaddr
+set @jobid = jobid
+set @batchid = _JobSubscriberBatchID
+set @listid = listid
+set @emailName = emailname_
+]%%

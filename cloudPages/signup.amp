@@ -1,0 +1,136 @@
+%%=CloudPagesURL('398', 's', 'kayaking', 'n', @firstname)=%%
+
+%% [
+set @segment = queryparameter('s')
+set @firstname = [First Name]
+set @gender = [Gender]
+set @subscriberkey = _subscriberkey
+]%%
+
+%%=redirectto(cloudpagesURL('398', 'rona', 'coronaTest', 'fn', @firstname, 'g', @gender))=%%
+%%=redirectto(cloudpagesURL('398', 'gral', 'generalTest', 'fn', @firstname, 'g', @gender))=%%
+
+<a href="%%=redirectto(cloudpagesURL('398', 'rona', 'coronaTest', 'fn', @firstname, 'ln', @lastname, 'dob', @dateofbirth, 'g', @gender))=%%" alias="hiking" target="_blank"><img src="https://image.sarah.cerascreen.com/lib/fe3911717564047f731371/m/1/906afe11-ec50-417a-b90c-26071233947c.png" border="0" alt=""></a>
+
+/* QUERYPARAMETER example
+http://www.example.com?n=George&st=tx */
+%%[
+set @firstname = queryparameter('fn')
+set @gender = queryparameter('g')
+set @subscriberkey = _subscriberkey
+]%%
+
+%%[if @segment == 'coronaTest' then]%%
+/* coronaTest Image code */
+%%[elseif @segment == 'generalTest' ]%%
+/* generalTest Image code */
+%%[else]%%
+/* Default Image code */
+%%[endif]%%
+
+
+/* QUERYPARAMETER example2 */
+%%[
+set @segment = queryparameter('s')
+set @firstname = queryparameter('fn')
+set @gender = queryparameter('g')
+set @subscriberkey = _subscriberkey
+]%%
+
+%%[if @gender == 'Female' then]%%
+/* Female Image code */
+%%[elseif @segment == 'Male' ]%%
+/* Male Image code */
+%%[else]%%
+/* Default Image code */
+%%[endif]%%
+
+
+/* Subscriber key value */
+%%[
+set @segment = queryparameter('s')
+set @firstname = queryparameter('fn')
+set @gender = queryparameter('g')
+set @subscriberkey = _subscriberkey
+
+set @VIPLookup = lookuprows('vip_subscribers', 'ID', @subscriberkey)
+
+if rowcount(@VIPLookup) >= 1 then
+]%%
+/* VIP banner Code */
+%%[endif]%%
+
+
+/* Use IIF to simplify the IF/ELSE logic based on a TRUE/FALSE condition */
+%%[
+set @segment = queryparameter('s')
+set @firstname = queryparameter('fn')
+set @gender = queryparameter('g')
+set @subscriberkey = _subscriberkey
+
+IIF(empty(@firstname), 'Corona case', propercase(@firstname))
+
+set @VIPLookup =
+lookuprows('vip_subscribers', 'ID', @subscriberkey)
+
+if rowcount(@VIPLookup) >= 1 then
+]%%
+
+/*  VIP banner code */
+%%[endif]%%
+
+/* Error handling in Cloudpages */
+<script runat="server" type="text/javascript">
+Platform.Load("core", "1");
+
+try {
+</script>
+%%[/* your ampscript */ ]%%
+<script runat="server" type="text/javascript">
+}
+
+<script runat="server" type="text/javascript">
+Platform.Load("Core", "1.1.1");
+try {
+</script>
+%%[ 
+  /* AMPscriptHere */ 
+]%%
+<script type="text/javascript" runat="server">
+}
+
+catch (err) {  Write("Error: " + Stringify(err));
+}
+</script>
+
+
+/* Use a basic qualifier, don't use a custom value because that can be mimicked through a query string */
+%%[
+Set @subscriberkey = _subscriberkey
+if not empty(@subscriberkey) == true then Set
+/* perform your scripting */
+]%%
+
+<! -- your HTML -->
+%%[else]%%
+You have reached this page in error.
+%%[endif]%%
+
+
+/* Use field() and row() to retrieve the accountId from the lookup */
+%%[
+set @segment = queryparameter('s')
+set @firstname = queryparameter('fn')
+set @gender = queryparameter('g')
+set @subscriberkey = _subscriberkey
+
+IIF(empty(@firstname), 'Corona case', propercase(@firstname))
+
+set @VIPLookup =
+lookuprows('vip_subscribers', 'ID', @subscriberkey)
+
+if rowcount(@VIPLookup) >= 1 then
+set @accountId = field(row(@VIPLookup, 1), 'accountID')
+]%%
+Your account number: %%=v(@accountId)=%%
+%%[endif]%%

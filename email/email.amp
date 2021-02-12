@@ -1,0 +1,19 @@
+/* landing page */
+%%[
+set @segment = queryparameter('s')
+set @firstname = queryparameter('fn')
+set @gender = queryparameter('g')
+set @stateCode = queryparameter('st')
+set @subscriberkey = _subscriberkey
+]%%
+
+%%[if @segment == 'hiking' then]%%
+%%=ContentImagebyID('180342','DefaultImage')=%%
+%%[elseif @segment == 'kayaking' then]%%
+%%=ContentImagebyID('180342','DefaultImage')=%%
+%%[else]%%
+%%=ContentImagebyID('180342','DefaultImage')=%%
+%%[endif]%%
+
+%%=uppercase(@firstname)=%%,10% on our test kits through February
+As an additional reward, we're giving you free SHIPPING to %%=v(@stateCode)=%%, or wherever your adventures take you!
